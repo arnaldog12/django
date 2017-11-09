@@ -7,25 +7,27 @@ from django.template import loader
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.views import generic
 
 from .models import Choice, Question
 
-def index(request):
-    # isso torna o import de loader e HttpResponse desnecessário
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'pools/index.html', context)
+# ListView são usadas para exibir lista de objetos
+class IndexView(generic.ListView):
+    template_name = 'pools/index.html'
+    context_object_name = 'latest_question_list'
 
-    # template = loader.get_template('pools/index.html')
-    # return HttpResponse(template.render(context, request))
+    def get_queryset(self):
+        """Return the last five published questions"""
+        return Question.objects.order_by('-pub_date')[:5]
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'pools/details.html', {'question':question})
+# DetailView são usadas para exibir uma página de detalhe de um tipo particular de objeto
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'pools/details.html'
 
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'pools/results.html', {'question': question})
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'pools/results.html'
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
