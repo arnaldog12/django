@@ -22,6 +22,16 @@ python manage.py runserver
 python manage.py makemigrations pools 
 ```
 
+```py
+# procura por arquivos de teste (test*.py) na aplicação APP_NAME e executa os testes
+python manage.py test APP_NAME
+```
+
+```py
+# inicia a shell do django
+python manage.py shell
+```
+
 # Como fazer mudanças nos modelos 
 - Mude seus modelos (em __models.py__)
 - Rode _python manage.py makemigrations_ para criar migrações para suas modificações
