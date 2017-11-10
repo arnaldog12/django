@@ -33,12 +33,20 @@ python manage.py shell
 ```
 
 # Como fazer mudanças nos modelos 
+
 - Mude seus modelos (em __models.py__)
 - Rode _python manage.py makemigrations_ para criar migrações para suas modificações
 - Rode _python manage.py migrate_ para aplicar suas modificações no banco de da
 
 A razão de haver comandos separados para criar e aplicar as migrações é porque você vai submeter migrações para o seu sistema de controle de versão e enviá-los com sua aplicação; eles não só fazem o seu desenvolvimento mais fácil, eles também são utilizáveis ​​por outros desenvolvedores e em produção.
 
+# Como criar casos de testes
+
+- Crie um arquivo test*.py na aplicação que deseja fazer o teste
+- Defina uma classe que herde de TestCase. Uma boa prática é criar uma classe para testar cada modelo ou view
+- Acrescente métodos a essa classe que implementam cada teste a ser efetuado. Uma boa prática é um método de teste separado para cada conjunto de condições que você quer testar. O nome do método também deve descrever o seu teste.
+
 # Referências
 
 - [Django tutorial](https://docs.djangoproject.com/pt-br/1.11/intro/tutorial01/)
+- [Testando no Django](https://docs.djangoproject.com/pt-br/1.11/topics/testing/)
